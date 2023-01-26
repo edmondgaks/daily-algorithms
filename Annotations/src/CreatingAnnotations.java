@@ -10,7 +10,12 @@ public class CreatingAnnotations {
         }
         for(Method method : myCat.getClass().getDeclaredMethods()) {
             if(method.isAnnotationPresent(RunImmediately.class)) {
-                method.invoke(myCat);
+                try {
+                    method.invoke(myCat);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
             }
         }
     }
