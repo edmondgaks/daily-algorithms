@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <stack>
 using namespace std;
 
 class Node {
@@ -11,6 +11,7 @@ public:
 class Stack {
 private:
     Node* top;
+    int size;
 public:
     Stack() {
         top = NULL;
@@ -20,6 +21,7 @@ public:
         new_node->data = data;
         new_node->next = top;
         top = new_node;
+        size++;
     }
     int pop() {
         if (top == NULL) {
@@ -30,6 +32,7 @@ public:
         Node* temp = top;
         top = top->next;
         delete temp;
+        size--;
         return data;
     }
     int peek() {
@@ -40,7 +43,10 @@ public:
         return top->data;
     }
     bool is_empty() {
-        return 0;
+        return top == NULL;
+	}
+	int getSize() {
+		return size;
 	}
 };
 int main() {
@@ -48,11 +54,14 @@ int main() {
     stack.push(1);
     stack.push(2);
     stack.push(3);
+    cout << "The size of stack is: " << stack.getSize() << endl;
     cout << "Peek: " << stack.peek() << endl; // should print 3
     cout << "Pop: " << stack.pop() << endl; // should print 3
     cout << "Peek: " << stack.peek() << endl; // should print 2
     cout << "Pop: " << stack.pop() << endl; // should print 2
     cout << "Pop: " << stack.pop() << endl; // should print 1
+    cout << "The size of stack is: " << stack.getSize() << endl;
     cout << "Is empty? " << stack.is_empty() << endl; // should print 1 (true)
+    
     return 0;
 }
